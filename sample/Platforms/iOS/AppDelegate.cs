@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using Maui.InAppUpdates;
 
 namespace Maui.Android.InAppUpdates;
 

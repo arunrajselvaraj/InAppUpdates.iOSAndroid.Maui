@@ -1,29 +1,28 @@
-﻿#if ANDROID
+﻿
 using Microsoft.Maui.LifecycleEvents;
-#endif
 
-namespace Maui.Android.InAppUpdates;
+namespace InAppUpdates.iOSAndroid.Maui;
 
 /// <summary>
-/// This class contains the extension method to enable the in-app updates for android.
+/// This class contains the extension method to enable the in-app updates
 /// </summary>
 public static class MauiAppBuilderExtensions
 {
     /// <summary>
-    /// This method will enable the in-app updates for android.
+    /// This method will enable the in-app updates for Android and iOS.
     /// Set debugMode to true to enable the fake app update manager.
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="setupAction"></param>
     /// <returns></returns>
-    public static MauiAppBuilder UseAndroidInAppUpdates(
+    public static MauiAppBuilder UseInAppUpdates(
         this MauiAppBuilder builder,
-        Action<AndroidInAppUpdatesOptions>? setupAction = null) 
+        Action<InAppUpdatesOptions>? setupAction = null) 
     {
         builder = builder ?? throw new ArgumentNullException(nameof(builder));
         
 #if ANDROID
-        setupAction?.Invoke(Internal.Handler.Options);
+        setupAction?.Invoke(Internal.AndroidHandler.Options);
         
         return builder
             .ConfigureLifecycleEvents(static events =>
@@ -31,9 +30,24 @@ public static class MauiAppBuilderExtensions
                 events.AddAndroid(static android =>
                 {
                     android
-                        .OnActivityResult(Internal.Handler.HandleActivityResult)
-                        .OnCreate(Internal.Handler.HandleCreate)
-                        .OnResume(Internal.Handler.HandleResume)
+                        .OnActivityResult(Internal.AndroidHandler.HandleActivityResult)
+                        .OnCreate(Internal.AndroidHandler.HandleCreate)
+                        .OnResume(Internal.AndroidHandler.HandleResume)
+                        ;
+                });
+            });
+#elif IOS
+        setupAction?.Invoke(Internal.IOSHandler.Options);
+        
+        return builder
+            .ConfigureLifecycleEvents(static events =>
+            {
+                events.AddiOS(static ios =>
+                {
+                    ios
+                        .OnActivated(Internal.IOSHandler.HandleActivated)
+                        //Enable this on needed basis. 
+                        //.OnResignActivation(Internal.IOSHandler.HandleResume)
                         ;
                 });
             });

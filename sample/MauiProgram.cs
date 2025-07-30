@@ -1,20 +1,49 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Maui.Android.InAppUpdates;
+namespace Maui.InAppUpdates;
+
 
 public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
+
 		builder
 			.UseMauiApp<App>()
-			.UseAndroidInAppUpdates(static options =>
+			.UseInAppUpdates(static options =>
 			{
+
+				options.AppUpdateCheckIntervalDays = 0; // Check for updates every time the app starts
+                options.AppUpdatePreferenceFileName = "AppStoreVersionPreference";
+#if IOS
+                options.AppBundleID = "6741144561";
+				options.AppPackageName = "com.company.example";
+				options.AppCountryCode = "au";
+				options.AppUpdateAlertTitle = "Update Available";
+				options.AppUpdateAlertMessage = "A new version {0} of the app is available. " +
+												"Please update to continue using the app.";
+				options.AppUpdateAlertButtonYesTxt = "Update Now";
+				options.AppUpdateAlertButtonNoTxt = "Later";
+
+				options.AppUpdateDelayAfterSplashInSeconds = 60;
+#endif
+
+#if ANDROID
+                options.ImmediateUpdatePriority = 2;
+#endif
 #if DEBUG
+#if ANDROID
 				options.UseFakeAppUpdateManager = true;
 #endif
-			})
+
+                options.DebugAction = (applog) =>
+                {
+                    Console.WriteLine("Debug action executed: " + applog);
+                };
+#endif
+
+            })
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

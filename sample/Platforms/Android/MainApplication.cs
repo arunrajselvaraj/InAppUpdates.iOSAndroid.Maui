@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Runtime;
+using Maui.InAppUpdates;
 
 namespace Maui.Android.InAppUpdates;
 

@@ -3,14 +3,17 @@
 using Xamarin.Google.Android.Play.Core.AppUpdate.Testing;
 #endif
 
-namespace Maui.Android.InAppUpdates;
+namespace Maui.InAppUpdates;
 
 public partial class MainPage : ContentPage
-{
+{  
+    public string AppBundleID => "1234567890"; // Replace with your actual App Bundle ID
+    public string AppPackageName => "com.example.app"; // Replace with your actual App Package Name
+
 #if ANDROID
 	private int _availableVersionCode = 2;
 #endif
-	
+
 	public MainPage()
 	{
 		InitializeComponent();
@@ -84,7 +87,7 @@ public partial class MainPage : ContentPage
 	private void CompleteUpdate()
 	{
 #if ANDROID
-		Internal.Handler.Options.CompleteUpdateAction();
+		Internal.AndroidHandler.Options.CompleteUpdateAction();
 #endif
 	}
 	
@@ -94,7 +97,7 @@ public partial class MainPage : ContentPage
 #if ANDROID
 		for (var i = 0; i < 100; i += 10)
 		{
-			Internal.Handler.Options.DownloadingAction(i);
+			Internal.AndroidHandler.Options.DownloadingAction(i);
 			await Task.Delay(TimeSpan.FromMilliseconds(250));
 		}
 #else
@@ -104,11 +107,11 @@ public partial class MainPage : ContentPage
 	
 #if ANDROID
 	private static FakeAppUpdateManager FakeAppUpdateManager =>
-		(Internal.Handler.AppUpdateManager as FakeAppUpdateManager)!;
+		(Internal.AndroidHandler.AppUpdateManager as FakeAppUpdateManager)!;
 	
 	private static void AddOnSuccessListener()
 	{
-		FakeAppUpdateManager.GetAppUpdateInfo()?.AddOnSuccessListener(Internal.Handler.AppUpdateSuccessListener!);
+		FakeAppUpdateManager.GetAppUpdateInfo()?.AddOnSuccessListener(Internal.AndroidHandler.AppUpdateSuccessListener!);
 	}
 #endif
 }

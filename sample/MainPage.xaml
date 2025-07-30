@@ -1,24 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="Maui.Android.InAppUpdates.MainPage"
+    x:Class="Maui.InAppUpdates.MainPage"
     x:DataType="inAppUpdates:MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:inAppUpdates="clr-namespace:Maui.Android.InAppUpdates"
+    xmlns:inAppUpdates="clr-namespace:Maui.InAppUpdates"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ScrollView>
-        <VerticalStackLayout Padding="5" Spacing="5">
-            <Label Text="Test using FakeUpdateManager:" />
-            <Button Command="{Binding SetUpdateAvailableWithPriorityOf3Command}" Text="SetUpdateAvailableWithPriorityOf3Command" />
-            <Button Command="{Binding SetUpdateAvailableWithPriorityOf5Command}" Text="SetUpdateAvailableWithPriorityOf5Command" />
-            <Button Command="{Binding UserAcceptsUpdateCommand}" Text="UserAcceptsUpdate" />
-            <Button Command="{Binding DownloadStartsCommand}" Text="DownloadStarts" />
-            <Button Command="{Binding DownloadCompletesCommand}" Text="DownloadCompletes" />
-            <Button Command="{Binding InstallCompletesCommand}" Text="InstallCompletes" />
-            <Button Command="{Binding InstallFailsCommand}" Text="InstallFails" />
-            <Label Text="Test UI:" />
-            <Button Command="{Binding CompleteUpdateCommand}" Text="CompleteUpdate" />
-            <Button Command="{Binding DownloadingCommand}" Text="Downloading" />
+        <VerticalStackLayout Padding="10" Spacing="10">
+
+            <!-- Add these labels for iOS -->
+            <VerticalStackLayout Spacing="5" IsVisible="{OnPlatform iOS='True', Default='False'}">
+                <Label Text="Configuration Values:" FontAttributes="Bold" />
+                <Label Text="{Binding AppBundleID, StringFormat='App Bundle ID: {0}'}" />
+                <Label Text="{Binding AppPackageName, StringFormat='App Package Name: {0}'}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout 
+                Spacing="5"
+                IsVisible="{OnPlatform iOS='False', Default='True'}">
+                
+                <Label Text="Test using FakeUpdateManager:" />
+                <Button Command="{Binding SetUpdateAvailableWithPriorityOf3Command}" Text="SetUpdateAvailableWithPriorityOf3Command" />
+                <Button Command="{Binding SetUpdateAvailableWithPriorityOf5Command}" Text="SetUpdateAvailableWithPriorityOf5Command" />
+                <Button Command="{Binding UserAcceptsUpdateCommand}" Text="UserAcceptsUpdate" />
+                <Button Command="{Binding DownloadStartsCommand}" Text="DownloadStarts" />
+                <Button Command="{Binding DownloadCompletesCommand}" Text="DownloadCompletes" />
+                <Button Command="{Binding InstallCompletesCommand}" Text="InstallCompletes" />
+                <Button Command="{Binding InstallFailsCommand}" Text="InstallFails" />
+                <Label Text="Test UI:" />
+                <Button Command="{Binding CompleteUpdateCommand}" Text="CompleteUpdate" />
+                <Button Command="{Binding DownloadingCommand}" Text="Downloading" />
+
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 
