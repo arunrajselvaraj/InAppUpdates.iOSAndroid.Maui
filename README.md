@@ -1,28 +1,59 @@
-# Maui.Android.InAppUpdates
-
-[![Nuget package](https://img.shields.io/nuget/vpre/Oscore.Maui.Android.InAppUpdates)](https://www.nuget.org/packages/Oscore.Maui.Android.InAppUpdates/)
-[![CI/CD](https://github.com/oscoreio/Maui.Android.InAppUpdates/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/oscoreio/Maui.Android.InAppUpdates/actions/workflows/dotnet.yml)
-[![License: MIT](https://img.shields.io/github/license/oscoreio/Maui.Android.InAppUpdates)](https://github.com/oscoreio/Maui.Android.InAppUpdates/blob/main/LICENSE)
-
-NuGet package that implementing Android In-App Updates for MAUI with debugging capabilities.
-![Flexible](https://developer.android.com/static/images/app-bundle/flexible_flow.png)
-
 # Usage
 - Add NuGet package to your project:
 ```xml
-<PackageReference Include="Oscore.Maui.Android.InAppUpdates" Version="1.2.0" />
+    <PackageReference Include="InAppUpdates.iOSAndroid.Maui" Version="0.0.5" />
 ```
 - Add the following to your `MauiProgram.cs` `CreateMauiApp` method:
 ```diff
-builder
-    .UseMauiApp<App>()
-+   .UseAndroidInAppUpdates()
-    .ConfigureFonts(fonts =>
-    {
-        fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-        fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-    });
+  builder
+	.UseMauiApp<App>()
++	.UseInAppUpdates(static options =>
+	{
+		options.AppUpdateCheckIntervalDays = 0; // Check for updates every time the app starts
+        options.AppUpdatePreferenceFileName = "AppStoreVersionPreference";
+#if IOS
+        options.AppBundleID = "6741144561";
+		options.AppPackageName = "com.company.example";
+		options.AppCountryCode = "au";
+		options.AppUpdateAlertTitle = "Update Available";
+		options.AppUpdateAlertMessage = "A new version {0} of the app is available. " +
+										"Please update to continue using the app.";
+		options.AppUpdateAlertButtonYesTxt = "Update Now";
+		options.AppUpdateAlertButtonNoTxt = "Later";
+
+		options.AppUpdateDelayAfterSplashInSeconds = 60;
+#endif
+
+#if ANDROID
+		options.ImmediateUpdatePriority = 2;
+#endif
+#if DEBUG
+#if ANDROID
+		options.UseFakeAppUpdateManager = true;
+#endif
+
+        options.DebugAction = (applog) =>
+        {
+            Console.WriteLine("Debug action executed: " + applog);
+        };
+#endif
+
+    })
+	.ConfigureFonts(fonts =>
+	{
+		fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+		fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+	});
 ```
+
+# iOS
+
+## Notes
+ - Properties mentioned in the iOS Macro are required for iOS
+ - By using the bundle ID, the app will be able to check for updates in the App Store.
+ - Package name used to redirect iOS Store, when update is available.
+
+# Android 
 
 ## Notes
 The default behavior:
@@ -37,7 +68,7 @@ you have to download the app from the Play Store to see the popup.
 I recommend using Android Play Store's [“Internal App Sharing”](https://play.google.com/console/about/internalappsharing/) feature to test.  
 
 
-# Links
+# Reference Links
 - https://developer.android.com/guide/playcore/in-app-updates/kotlin-java
 - https://github.com/PatGet/XamarinPlayCoreUpdater
 - https://github.com/xamarin/GooglePlayServicesComponents/issues/796
