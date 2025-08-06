@@ -176,7 +176,7 @@ public class InAppUpdatesOptions
     /// <summary>
     /// Gets the delay, in seconds, after the splash screen before the application checks for updates.
     /// </summary>
-    public int AppUpdateDelayAfterSplashInSeconds { get; set; }
+    public double AppUpdateDelayAfterSplash { get; set; }
 
 #endif
 }

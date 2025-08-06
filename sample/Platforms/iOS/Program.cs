@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace Maui.Android.InAppUpdates;
+namespace InAppUpdates.iOSAndroid.Maui;
 
 public class Program
 {

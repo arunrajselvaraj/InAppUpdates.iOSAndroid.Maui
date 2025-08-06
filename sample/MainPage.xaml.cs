@@ -3,7 +3,7 @@
 using Xamarin.Google.Android.Play.Core.AppUpdate.Testing;
 #endif
 
-namespace Maui.InAppUpdates;
+namespace InAppUpdates.iOSAndroid.Maui;
 
 public partial class MainPage : ContentPage
 {  

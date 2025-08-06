@@ -1,44 +1,44 @@
 # Usage
 - Add NuGet package to your project:
 ```xml
-    <PackageReference Include="InAppUpdates.iOSAndroid.Maui" Version="0.0.5" />
+    <PackageReference Include="InAppUpdates.iOSAndroid.Maui" Version="0.0.9" />
 ```
 - Add the following to your `MauiProgram.cs` `CreateMauiApp` method:
 ```diff
   builder
 	.UseMauiApp<App>()
 +	.UseInAppUpdates(static options =>
-	{
-		options.AppUpdateCheckIntervalDays = 0; // Check for updates every time the app starts
-        options.AppUpdatePreferenceFileName = "AppStoreVersionPreference";
++	{
++		options.AppUpdateCheckIntervalDays = 0; // Check for updates every time the app starts
++       options.AppUpdatePreferenceFileName = "AppStoreVersionPreference";
 #if IOS
-        options.AppBundleID = "6741144561";
-		options.AppPackageName = "com.company.example";
-		options.AppCountryCode = "au";
-		options.AppUpdateAlertTitle = "Update Available";
-		options.AppUpdateAlertMessage = "A new version {0} of the app is available. " +
++       options.AppBundleID = "67461";
++		options.AppPackageName = "com.company.example";
++		options.AppCountryCode = "au";
++		options.AppUpdateAlertTitle = "Update Available";
++		options.AppUpdateAlertMessage = "A new version {0} of the app is available. " +
 										"Please update to continue using the app.";
-		options.AppUpdateAlertButtonYesTxt = "Update Now";
-		options.AppUpdateAlertButtonNoTxt = "Later";
++		options.AppUpdateAlertButtonYesTxt = "Update Now";
++		options.AppUpdateAlertButtonNoTxt = "Later";
 
-		options.AppUpdateDelayAfterSplashInSeconds = 60;
++		options.AppUpdateDelayAfterSplashInSeconds = 0.5;
 #endif
 
 #if ANDROID
-		options.ImmediateUpdatePriority = 2;
++		options.ImmediateUpdatePriority = 2;
 #endif
 #if DEBUG
 #if ANDROID
-		options.UseFakeAppUpdateManager = true;
++		options.UseFakeAppUpdateManager = true;
 #endif
 
-        options.DebugAction = (applog) =>
-        {
-            Console.WriteLine("Debug action executed: " + applog);
-        };
++        options.DebugAction = (applog) =>
++        {
++            Console.WriteLine("Debug action executed: " + applog);
++        };
 #endif
 
-    })
++    })
 	.ConfigureFonts(fonts =>
 	{
 		fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

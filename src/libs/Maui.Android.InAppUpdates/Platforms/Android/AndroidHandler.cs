@@ -43,16 +43,17 @@ public static class AndroidHandler
         // Check for updates in the background
         Task.Run(async () =>
         {
-            Options.DebugAction("started checing  for updates in the background");
+            Options.DebugAction("[HandleCreate] started checking for updates in the background");
 
             // Check if we should skip this update check based on cache
             if (await appUpdatePreferenceCheck.ShouldSkipUpdateCheck(Options))
             {
-                Options.DebugAction("Skipping update check - using cached data");
+                Options.DebugAction("[HandleCreate] Skipping update check - using cached data");
                 return;
             }
 
-            Options.DebugAction("Checking for updates in the background");
+            Options.DebugAction("[HandleCreate] Check for updates in the background completed");
+
             AppUpdateManager = Options.UseFakeAppUpdateManager
                 ? new FakeAppUpdateManager(activity)
                 : AppUpdateManagerFactory.Create(activity);
@@ -62,7 +63,6 @@ public static class AndroidHandler
                 updateRequest: Options.RequestCode);
             AppUpdateManager.GetAppUpdateInfo().AddOnSuccessListener(AppUpdateSuccessListener);
         });
-        
     }
     
     /// <summary>
@@ -80,16 +80,16 @@ public static class AndroidHandler
         // Check for updates in the background
         Task.Run(async () =>
         {
-            Options.DebugAction("started checking  for updates in the background");
+            Options.DebugAction("[HandleResume] started checking  for updates in the background");
 
             // Check if we should skip this update check based on cache
             if (await appUpdatePreferenceCheck.ShouldSkipUpdateCheck(Options))
             {
-                Options.DebugAction("Skipping update check - using cached data");
+                Options.DebugAction("[HandleResume] Skipping update check - using cached data");
                 return;
             }
 
-            Options.DebugAction("Checking for updates in the background");
+            Options.DebugAction("[HandleResume] Check for updates in the background completed");
 
             ResumeSuccessListener ??= new AndroidResumeSuccessListener(
             appUpdateManager: AppUpdateManager,

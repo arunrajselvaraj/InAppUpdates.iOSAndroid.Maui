@@ -1,7 +1,6 @@
 ﻿using Foundation;
-using Maui.InAppUpdates;
 
-namespace Maui.Android.InAppUpdates;
+namespace InAppUpdates.iOSAndroid.Maui;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate
