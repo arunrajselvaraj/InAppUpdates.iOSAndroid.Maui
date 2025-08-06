@@ -1,4 +1,4 @@
-﻿namespace Maui.InAppUpdates;
+﻿namespace InAppUpdates.iOSAndroid.Maui;
 
 public partial class AppShell : Shell
 {

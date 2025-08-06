@@ -63,7 +63,7 @@ public static class IOSHandler
         // Check for updates in the background
         Task.Run(async () =>
         {
-            await Task.Delay(TimeSpan.FromSeconds(Options.AppUpdateDelayAfterSplashInSeconds)); 
+            await Task.Delay(TimeSpan.FromSeconds(Options.AppUpdateDelayAfterSplash)); 
             await CheckForUpdates();
         });
     }

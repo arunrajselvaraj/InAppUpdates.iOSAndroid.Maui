@@ -38,13 +38,13 @@
             // Get the current date (using Date to ignore time)
             DateTime today = DateTime.Now.Date;
 
-            // Check if we already performed a check in this session
+            // Check if the current session date is today and if the check has already been performed
             if (cache.CurrentSessionDate.Date == today && cache.CheckedInCurrentSession)
             {
                 options.DebugAction("Skipping update check - already checked today in this session");
                 return true;
             }
-            // If the last check was today, skip the check
+
             // Check if it's been less than the interval days since last check
             if ((today - cache.LastCheckDate.Date).TotalDays < options.AppUpdateCheckIntervalDays)
             {

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0;net9.0-android;net9.0-ios;</TargetFrameworks>
+    <TargetFrameworks>net9.0-android;net9.0-ios;net9.0</TargetFrameworks>
     <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
     <Nullable>enable</Nullable>
     <LangVersion>preview</LangVersion>
@@ -21,11 +21,11 @@
 
   <PropertyGroup Label="NuGet">
     <PackageId>InAppUpdates.iOSAndroid.Maui</PackageId>
-    <Version>0.0.5</Version>
+    <Version>0.0.9</Version>
     <Authors>Arunraj Selvaraj</Authors>
     <Company>TN56-Studios</Company>
-    <Description>NuGet package for In-App Updates capabilities for MAUI Android and iOS with debugging capabilities.</Description>
-    <PackageTags>maui;android;ios;in-app-updates;updates;in-app;net9;dotnet;csharp</PackageTags>
+    <Description>NuGet package for In-App Updates capabilities for MAUI Android and iOS</Description>
+    <PackageTags>maui;android;ios;in-app-updates;dotnet;csharp</PackageTags>
     <Copyright>Copyright (c) 2025 TN56-Studios</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -35,6 +35,8 @@
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
+	<!-- Add this line to skip MinVer -->
+	<MinVerSkip>true</MinVerSkip>
   </PropertyGroup>
 
   <ItemGroup>
